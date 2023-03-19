@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">AnimeZone</string>
+    <string name="app_name">Anime Zone</string>
+    <string name="popular">Popular</string>
 </resources>

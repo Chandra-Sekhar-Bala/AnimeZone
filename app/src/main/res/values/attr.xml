@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="white_n_black" type="color"/>
+    <attr name="black_n_white" type="color"/>
+    <attr name="rectangle_bg_color" format="color"/>
+    <attr name="grey_border_color" format="color"/>
+
+</resources>
