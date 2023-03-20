@@ -58,7 +58,6 @@
         android:textSize="14sp"
         app:layout_constraintStart_toEndOf="@+id/imageView4"
         app:layout_constraintTop_toBottomOf="@+id/anime_poster"
-        app:toptpt="@+id/imageView4"
         tools:text="9.16/10" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
