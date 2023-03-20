@@ -8,7 +8,7 @@ import retrofit2.http.Query
 
 interface AnimeAPI {
 
-    @GET("anime")
+    @GET("top/anime")
     suspend fun getTopAnime(
         @Query("page") page : Int,
     ) : AnimeList

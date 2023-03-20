@@ -1,16 +1,22 @@
 package com.chandra.animezone.ui.home
 
+import android.graphics.drawable.Drawable
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import android.transition.Slide
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.target.CustomTarget
+import com.bumptech.glide.request.transition.Transition
 import com.chandra.animezone.CONSTANTS
 import com.chandra.animezone.R
+import com.chandra.animezone.adapter.PopularAnimeAdapter
 import com.chandra.animezone.databinding.FragmentHomeBinding
 import com.chandra.animezone.repository.network.AnimeAPI
 import com.denzcoskun.imageslider.ImageSlider
@@ -26,6 +32,8 @@ class HomeFragment : Fragment() {
 
     private lateinit var viewModel: HomeViewModel
     private lateinit var binding: FragmentHomeBinding
+    lateinit var adapter : PopularAnimeAdapter
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,13 +46,13 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this)[HomeViewModel::class.java]
+        adapter = PopularAnimeAdapter()
+        binding.searchResultRecycler.layoutManager = GridLayoutManager(requireContext(), 2)
+        binding.searchResultRecycler.adapter = adapter
     }
 
     override fun onResume() {
         super.onResume()
-        viewModel.topAnimeList.observe(this){
-            Log.d("TAGTAG", "onResume: $it")
-        }
         val imageList = ArrayList<SlideModel>()
         viewModel.popularAnimeList.observe(this){
             for( item in it){
@@ -52,13 +60,9 @@ class HomeFragment : Fragment() {
             }
             binding.imageSlider.setImageList(imageList = imageList)
         }
-//        binding.imageSlider.setItemClickListener(object : ItemClickListener {
-//            override fun onItemSelected(position: Int) {
-//                // You can listen here
-//                Toast.makeText(requireContext(), "clicked $position", Toast.LENGTH_SHORT).show()
-//                Log.d(CONSTANTS.TAG, "onItemSelected: $position ")
-//            }
-//        })
-
+        viewModel.topAnimeList.observe(this){
+            Log.d(CONSTANTS.TAG, "Data is : ${it.toString()} ")
+            adapter.submitList(it)
+        }
     }
 }
