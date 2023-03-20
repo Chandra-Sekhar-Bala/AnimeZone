@@ -3,7 +3,7 @@ package com.chandra.animezone.models
 import com.squareup.moshi.Json
 
 data class Response(
-    @Json(name = "mail_id") val malId: Int?,
+    @Json(name = "mail_id") val id: Int,
     val airing: Boolean?,
     val approved: Boolean?,
     val background: String?,
