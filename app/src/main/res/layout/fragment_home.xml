@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".ui.home.HomeFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
@@ -60,16 +60,20 @@
 
     <com.denzcoskun.imageslider.ImageSlider
         android:id="@+id/image_slider"
-        android:layout_width="wrap_content"
-        android:layout_height="200dp"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_marginTop="2dp"
         app:iss_auto_cycle="true"
-        app:iss_delay="0"
-        app:iss_period="1000"
-        android:layout_margin="8dp"
-        app:layout_constraintStart_toStartOf="parent"
+        app:iss_delay="100"
+        app:iss_indicator_align="CENTER"
+        app:iss_period="2000"
+        app:iss_placeholder="@drawable/anime_item_template"
+        app:iss_text_align="CENTER"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/constraintLayout"
-        />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/constraintLayout" />
+
     <TextView
         android:id="@+id/popular_txt"
         android:layout_width="wrap_content"

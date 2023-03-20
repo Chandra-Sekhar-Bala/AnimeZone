@@ -1,5 +1,7 @@
 package com.chandra.animezone.models
 
+import com.squareup.moshi.Json
+
 data class Jpg(
-    val largeImageUrl: String?,
+    @Json(name = "large_image_url") val largeImageUrl: String?,
 )
