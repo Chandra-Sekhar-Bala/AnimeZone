@@ -1,39 +1,26 @@
 package com.chandra.animezone.ui.home
 
-import android.graphics.drawable.Drawable
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.target.CustomTarget
-import com.bumptech.glide.request.transition.Transition
-import com.chandra.animezone.CONSTANTS
-import com.chandra.animezone.R
+import com.chandra.animezone.adapter.ItemClickListener
 import com.chandra.animezone.adapter.PopularAnimeAdapter
 import com.chandra.animezone.databinding.FragmentHomeBinding
-import com.chandra.animezone.repository.network.AnimeAPI
-import com.denzcoskun.imageslider.ImageSlider
-import com.denzcoskun.imageslider.constants.ScaleTypes
-import com.denzcoskun.imageslider.interfaces.ItemChangeListener
-import com.denzcoskun.imageslider.interfaces.ItemClickListener
-import com.denzcoskun.imageslider.models.SlideModel
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 @AndroidEntryPoint
-class HomeFragment : Fragment() {
+class HomeFragment : Fragment(), ItemClickListener {
 
     private lateinit var viewModel: HomeViewModel
     private lateinit var binding: FragmentHomeBinding
-    lateinit var adapter: PopularAnimeAdapter
+    private lateinit var adapter: PopularAnimeAdapter
     private lateinit var layoutManager: GridLayoutManager
 
 
@@ -48,7 +35,7 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this)[HomeViewModel::class.java]
-        adapter = PopularAnimeAdapter()
+        adapter = PopularAnimeAdapter(this)
         layoutManager = GridLayoutManager(requireContext(), 2)
         binding.topAnimeRecycler.layoutManager = layoutManager
         binding.topAnimeRecycler.adapter = adapter
@@ -57,15 +44,16 @@ class HomeFragment : Fragment() {
     override fun onResume() {
         super.onResume()
 
-        viewModel.popularAnimeList.observe(this){
+        viewModel.popularAnimeList.observe(this) {
             binding.imageSlider.setImageList(imageList = it)
         }
-        viewModel.topAnimeList.observe(this){
+        viewModel.topAnimeList.observe(this) {
             adapter.submitList(it)
 
             if (binding.shimmerLayout.visibility == View.VISIBLE) {
                 binding.shimmerLayout.visibility = View.GONE
                 binding.popularTxt.visibility = View.VISIBLE
+                binding.imageSlider.visibility = View.VISIBLE
             }
         }
         // for pagination : Listening to recyclerView scrolling
@@ -81,4 +69,19 @@ class HomeFragment : Fragment() {
                 }
             })
     }
+
+    // callback when the item is clicked
+    override fun OnItemCLicked(anime_id: Int?) {
+        if (anime_id == null) {
+            Toast.makeText(
+                requireContext(),
+                "Details not available at this moment",
+                Toast.LENGTH_SHORT
+            ).show()
+        } else {
+            val direction = HomeFragmentDirections.actionHomeFragmentToDetailsFragment(id)
+            findNavController().navigate(direction)
+        }
+    }
 }
+

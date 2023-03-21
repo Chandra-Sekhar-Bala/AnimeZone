@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph.xml"
-    app:startDestination="@id/detailsFragment">
+    app:startDestination="@id/homeFragment">
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.chandra.animezone.ui.home.HomeFragment"
@@ -28,6 +28,9 @@
             android:id="@+id/action_detailsFragment_to_savedFragment"
             app:destination="@id/savedFragment"
             app:popUpTo="@id/homeFragment" />
+        <argument
+            android:name="id"
+            app:argType="integer" />
     </fragment>
     <fragment
         android:id="@+id/savedFragment"

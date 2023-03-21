@@ -66,6 +66,7 @@
         app:iss_auto_cycle="true"
         app:iss_delay="100"
         app:iss_period="2000"
+        android:visibility="gone"
         app:iss_placeholder="@drawable/anime_item_template"
         app:iss_text_align="CENTER"
         app:layout_constraintEnd_toEndOf="parent"

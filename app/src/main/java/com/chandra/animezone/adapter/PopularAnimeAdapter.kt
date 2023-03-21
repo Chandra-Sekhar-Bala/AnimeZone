@@ -16,12 +16,12 @@ import com.chandra.animezone.R
 import com.chandra.animezone.models.Response
 import java.text.DecimalFormat
 
-class PopularAnimeAdapter : ListAdapter<Response, PopularAnimeAdapter.AnimeViewHolder> (diffUtil){
+class PopularAnimeAdapter constructor(private val listener: ItemClickListener) :
+    ListAdapter<Response, PopularAnimeAdapter.AnimeViewHolder>(diffUtil) {
 
     lateinit var context: Context
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AnimeViewHolder {
         context = parent.context
-        Log.d(CONSTANTS.TAG, "Layout created")
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_anime, parent, false)
         return AnimeViewHolder(view)
     }
@@ -29,6 +29,9 @@ class PopularAnimeAdapter : ListAdapter<Response, PopularAnimeAdapter.AnimeViewH
     override fun onBindViewHolder(holder: AnimeViewHolder, position: Int) {
         val data = getItem(position)
         holder.bind(data)
+        holder.itemView.setOnClickListener {
+            listener.OnItemCLicked(data.id)
+        }
     }
 
     inner class AnimeViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -59,6 +62,8 @@ class PopularAnimeAdapter : ListAdapter<Response, PopularAnimeAdapter.AnimeViewH
         }
 
     }
+}
 
-
+interface ItemClickListener {
+    fun OnItemCLicked(anime_id: Int?)
 }
