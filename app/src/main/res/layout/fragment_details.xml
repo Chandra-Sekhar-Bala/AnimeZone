@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="300dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/placeholder"
+        tools:src="@drawable/placeholder"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -71,7 +71,7 @@
                 android:id="@+id/save_as_favorite"
                 android:layout_width="40dp"
                 android:layout_height="30dp"
-                android:src="@drawable/saved_filled"
+                android:src="@drawable/saved"
                 app:layout_constraintBottom_toBottomOf="@+id/rating"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:tint="?attr/black_n_white" />
@@ -82,7 +82,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:fontFamily="@font/carter_one"
-                android:text="Attack on Titan "
+                tools:text="Attack on Titan "
                 android:textSize="25sp"
                 app:layout_constraintStart_toStartOf="@+id/imageView4"
                 app:layout_constraintTop_toBottomOf="@+id/imageView4" />
@@ -93,17 +93,17 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:text="Total Episodes:"
+                android:text="Rank"
                 app:layout_constraintStart_toStartOf="@+id/title"
                 app:layout_constraintTop_toBottomOf="@+id/title" />
 
             <TextView
-                android:id="@+id/textView3"
+                android:id="@+id/ranking"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
+                android:layout_marginTop="4dp"
                 android:fontFamily="monospace"
-                android:text="26"
+                tools:text="1"
                 android:textStyle="bold"
                 app:layout_constraintHorizontal_bias="0.441"
                 app:layout_constraintStart_toStartOf="@+id/textView2"
@@ -115,17 +115,17 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
-                android:text="Release Year:"
+                android:text="Release ongoing:"
                 app:layout_constraintStart_toEndOf="@+id/textView2"
                 app:layout_constraintTop_toTopOf="@+id/textView2" />
 
             <TextView
-                android:id="@+id/releaseYear"
+                android:id="@+id/releaseOngoing"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
                 android:fontFamily="monospace"
-                android:text="2022"
+                android:layout_marginTop="4dp"
+                tools:text="No"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="@+id/textView4"
                 app:layout_constraintTop_toBottomOf="@+id/textView4" />
@@ -135,18 +135,17 @@
                 style="@style/SubHeadingTextStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="Popularity:"
+                android:layout_marginTop="16dp"
+                android:text="Total Episodes:"
                 app:layout_constraintStart_toStartOf="@+id/textView2"
-                app:layout_constraintTop_toBottomOf="@+id/textView3" />
+                app:layout_constraintTop_toBottomOf="@+id/ranking" />
 
             <TextView
-                android:id="@+id/popularity"
+                android:id="@+id/total_episodes"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
                 android:fontFamily="monospace"
-                android:text="46"
+                tools:text="25"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="@+id/textView5"
                 app:layout_constraintTop_toBottomOf="@+id/textView5" />
@@ -156,17 +155,19 @@
                 style="@style/SubHeadingTextStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Release ongoing:"
-                app:layout_constraintStart_toStartOf="@+id/textView4"
+                android:layout_marginStart="16dp"
+                android:text="Duration:"
+                app:layout_constraintBottom_toBottomOf="@+id/textView5"
+                app:layout_constraintStart_toEndOf="@+id/textView5"
                 app:layout_constraintTop_toTopOf="@+id/textView5" />
 
             <TextView
-                android:id="@+id/releaseOngoing"
+                android:id="@+id/duration"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
+                android:layout_marginTop="4dp"
                 android:fontFamily="monospace"
-                android:text="Yes"
+                tools:text="2 he 30 min per ep"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="@+id/textView6"
                 app:layout_constraintTop_toBottomOf="@+id/textView6" />
@@ -179,10 +180,12 @@
                 android:background="@drawable/rectangle_bg"
                 android:paddingHorizontal="20dp"
                 android:text="Watch Trailer"
+
+                android:textColor="?attr/black_n_white"
                 android:textAllCaps="false"
                 app:backgroundTint="@null"
                 app:layout_constraintStart_toStartOf="@+id/textView5"
-                app:layout_constraintTop_toBottomOf="@+id/popularity" />
+                app:layout_constraintTop_toBottomOf="@+id/duration" />
 
             <TextView
                 android:id="@+id/textView7"
@@ -195,12 +198,12 @@
                 app:layout_constraintTop_toBottomOf="@+id/btn_watchTrailer" />
 
             <TextView
+                android:id="@+id/about"
                 style="@style/SubHeadingTextStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:fontFamily="sans-serif"
-                android:text="Crime is timeless. By the year 2071, humanity has expanded across the galaxy, filling the surface of other planets with settlemiegel and Jet Black pursue crimihile, Jet manages his own troubled memories while taking care of Spike and the Bebop, their ship. The duo is joined by the beautiful con artist Faye Valentine, odd child Edward Wong Hau Pepelu Tivrusky IV, and Ein, a bioengineered Welsh Corgi.\n\nWhile developing bonds and working to catch a colorful cast of criminals, the Bebop crew's lives are disrupted by a menace from Spike's past. As a rival's maniacal plot continuesy MAL Rewrite]"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/textView7"
                 app:layout_constraintTop_toBottomOf="@+id/textView7" />

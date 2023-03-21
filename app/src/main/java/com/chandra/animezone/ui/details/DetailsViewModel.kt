@@ -15,8 +15,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class DetailsViewModel @Inject constructor(private val animeAPI: AnimeAPI) : ViewModel() {
-    private var _animeDetails = MutableLiveData<AnimeDetails>()
-    val animeDetails: LiveData<AnimeDetails>
+    private var _animeDetails = MutableLiveData<Response?>()
+    val animeDetails: LiveData<Response?>
         get() = _animeDetails
 
     fun getAnimeDetails(id: Int) {
@@ -24,7 +24,7 @@ class DetailsViewModel @Inject constructor(private val animeAPI: AnimeAPI) : Vie
             try {
                 Log.d(CONSTANTS.TAG, "getAnimeDetails : id: $id")
                 val response = animeAPI.getAnimeDetails(id)
-                _animeDetails.value = response
+                _animeDetails.value = response.data
             }catch (e : Exception){
                 Log.d(CONSTANTS.TAG, "getAnimeDetails: error : ${e.message}")
             }
