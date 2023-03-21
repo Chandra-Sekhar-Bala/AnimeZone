@@ -81,6 +81,7 @@
         android:layout_marginTop="8dp"
         android:text="@string/popular"
         android:textSize="20sp"
+        android:visibility="gone"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/image_slider"
@@ -98,4 +99,27 @@
         app:layout_constraintTop_toBottomOf="@+id/popular_txt"
         tools:listitem="@layout/item_anime" />
 
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/shimmer_layout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <ImageButton
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:layout_margin="10dp"
+                android:background="@color/light_grey"
+                />
+            <include layout="@layout/item_anime_shimmer"/>
+            <include layout="@layout/item_anime_shimmer"/>
+            <include layout="@layout/item_anime_shimmer"/>
+        </LinearLayout>
+    </com.facebook.shimmer.ShimmerFrameLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

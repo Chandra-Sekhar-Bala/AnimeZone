@@ -57,11 +57,16 @@ class HomeFragment : Fragment() {
     override fun onResume() {
         super.onResume()
 
-        viewModel.popularAnimeList.observe(this) {
+        viewModel.popularAnimeList.observe(this){
             binding.imageSlider.setImageList(imageList = it)
         }
-        viewModel.topAnimeList.observe(this) {
+        viewModel.topAnimeList.observe(this){
             adapter.submitList(it)
+
+            if (binding.shimmerLayout.visibility == View.VISIBLE) {
+                binding.shimmerLayout.visibility = View.GONE
+                binding.popularTxt.visibility = View.VISIBLE
+            }
         }
         // for pagination : Listening to recyclerView scrolling
         binding.topAnimeRecycler.addOnScrollListener(
