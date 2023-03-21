@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
@@ -32,7 +33,8 @@ class HomeFragment : Fragment() {
 
     private lateinit var viewModel: HomeViewModel
     private lateinit var binding: FragmentHomeBinding
-    lateinit var adapter : PopularAnimeAdapter
+    lateinit var adapter: PopularAnimeAdapter
+    private lateinit var layoutManager: GridLayoutManager
 
 
     override fun onCreateView(
@@ -47,22 +49,31 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this)[HomeViewModel::class.java]
         adapter = PopularAnimeAdapter()
-        binding.searchResultRecycler.layoutManager = GridLayoutManager(requireContext(), 2)
-        binding.searchResultRecycler.adapter = adapter
+        layoutManager = GridLayoutManager(requireContext(), 2)
+        binding.topAnimeRecycler.layoutManager = layoutManager
+        binding.topAnimeRecycler.adapter = adapter
     }
 
     override fun onResume() {
         super.onResume()
-        val imageList = ArrayList<SlideModel>()
-        viewModel.popularAnimeList.observe(this){
-            for( item in it){
-                imageList.add(SlideModel(item.entry!!.images!!.jpg!!.largeImageUrl, item.entry.title, ScaleTypes.CENTER_INSIDE))
-            }
-            binding.imageSlider.setImageList(imageList = imageList)
+
+        viewModel.popularAnimeList.observe(this) {
+            binding.imageSlider.setImageList(imageList = it)
         }
-        viewModel.topAnimeList.observe(this){
-            Log.d(CONSTANTS.TAG, "Data is : ${it.toString()} ")
+        viewModel.topAnimeList.observe(this) {
             adapter.submitList(it)
         }
+        // for pagination : Listening to recyclerView scrolling
+        binding.topAnimeRecycler.addOnScrollListener(
+            object : RecyclerView.OnScrollListener() {
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                    super.onScrolled(recyclerView, dx, dy)
+                    val lastVisible = layoutManager.findLastVisibleItemPosition()
+                    val totalItemCount = layoutManager.itemCount
+                    if (lastVisible == totalItemCount - 4 || lastVisible == totalItemCount - 5) {
+                        viewModel.loadNextTopAnimePage()
+                    }
+                }
+            })
     }
 }

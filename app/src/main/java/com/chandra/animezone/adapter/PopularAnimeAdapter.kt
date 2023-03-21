@@ -14,6 +14,7 @@ import com.bumptech.glide.Glide
 import com.chandra.animezone.CONSTANTS
 import com.chandra.animezone.R
 import com.chandra.animezone.models.Response
+import java.text.DecimalFormat
 
 class PopularAnimeAdapter : ListAdapter<Response, PopularAnimeAdapter.AnimeViewHolder> (diffUtil){
 
@@ -27,7 +28,6 @@ class PopularAnimeAdapter : ListAdapter<Response, PopularAnimeAdapter.AnimeViewH
 
     override fun onBindViewHolder(holder: AnimeViewHolder, position: Int) {
         val data = getItem(position)
-        Log.d(CONSTANTS.TAG, "Binding data $data")
         holder.bind(data)
     }
 
@@ -42,7 +42,9 @@ class PopularAnimeAdapter : ListAdapter<Response, PopularAnimeAdapter.AnimeViewH
                 .placeholder(R.drawable.anime_item_template)
                 .into(anime_poster)
             title.text = data?.title.toString()
-            rating.text = String.format("%s/10", data?.score)
+            val df = DecimalFormat("#.#")
+            val score = df.format(data?.score).toDouble()
+            rating.text = String.format("%s/10", score)
         }
 
     }
