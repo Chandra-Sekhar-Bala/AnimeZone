@@ -1,6 +1,7 @@
 package com.chandra.animezone.ui.home
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.chandra.animezone.CONSTANTS
 import com.chandra.animezone.adapter.ItemClickListener
 import com.chandra.animezone.adapter.PopularAnimeAdapter
 import com.chandra.animezone.databinding.FragmentHomeBinding
@@ -79,7 +81,7 @@ class HomeFragment : Fragment(), ItemClickListener {
                 Toast.LENGTH_SHORT
             ).show()
         } else {
-            val direction = HomeFragmentDirections.actionHomeFragmentToDetailsFragment(id)
+            val direction = HomeFragmentDirections.actionHomeFragmentToDetailsFragment(anime_id)
             findNavController().navigate(direction)
         }
     }

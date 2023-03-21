@@ -1,10 +1,8 @@
 package com.chandra.animezone.repository.network
 
-import com.chandra.animezone.models.AnimeList
-import com.chandra.animezone.models.AnimePopularList
-import com.chandra.animezone.models.PopularResponse
-import com.chandra.animezone.models.Response
+import com.chandra.animezone.models.*
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 import kotlin.reflect.jvm.internal.impl.load.java.ReportLevel
 
@@ -19,8 +17,8 @@ interface AnimeAPI {
         @Query("limit") limit : Int = 10
     ) : AnimePopularList
 
-    @GET("anime/{id}")
+    @GET("anime/{anime_id}")
     suspend fun getAnimeDetails(
-        id : Int
-    ) : List<Response>
+       @Path("anime_id") id : Int
+    ) : AnimeDetails
 }
