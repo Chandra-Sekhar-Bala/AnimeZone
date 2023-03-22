@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">Anime Zone</string>
     <string name="popular">Popular</string>
+    <string name="watch_trailer">Watch Trailer</string>
+    <string name="about">About:</string>
+    <string name="duration">Duration:</string>
+    <string name="total_episodes">Total Episodes:</string>
+    <string name="release_ongoing">Release ongoing:</string>
+    <string name="rank">Rank:</string>
 </resources>

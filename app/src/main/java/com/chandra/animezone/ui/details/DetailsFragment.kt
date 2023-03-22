@@ -2,14 +2,15 @@ package com.chandra.animezone.ui.details
 
 import android.content.Intent
 import android.net.Uri
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
@@ -42,29 +43,50 @@ class DetailsFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        viewModel.animeDetails.observe(this) {
-            Log.d(CONSTANTS.TAG, "onResume: $it")
-        }
+
         viewModel.animeDetails.observe(this) {
             bindData(it)
         }
+
+        viewModel.existInDB.observe(this){
+            val drawable = when (it) {
+                true -> ContextCompat.getDrawable(requireContext(), R.drawable.saved_filled)
+                false -> ContextCompat.getDrawable(requireContext(), R.drawable.saved)
+            }
+            binding.saveAsFavorite.setImageDrawable(drawable)
+        }
+
         binding.backBtn.setOnClickListener {
             findNavController().popBackStack()
         }
+
         binding.btnWatchTrailer.setOnClickListener {
-            if (youtubeLink != null) {
-                // Open in YouTube app if available
-                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(youtubeLink))
-                intent.setPackage("com.google.android.youtube")
-                if (intent.resolveActivity(requireActivity().packageManager) != null) {
-                    startActivity(intent)
-                } else {
-                    // Open in web browser if YouTube app is not installed
-                    startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(youtubeLink)))
-                }
-            }else{
-                Toast.makeText(requireContext(), "Trailer is not available at this moment", Toast.LENGTH_SHORT).show()
+            sendUserToYoutube()
+        }
+        binding.saveAsFavorite.setOnClickListener{
+            viewModel.saveMovieToDB()
+        }
+
+    }
+
+
+    private fun sendUserToYoutube() {
+        if (youtubeLink != null) {
+            // Open in YouTube app if available
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(youtubeLink))
+            intent.setPackage("com.google.android.youtube")
+            if (intent.resolveActivity(requireActivity().packageManager) != null) {
+                startActivity(intent)
+            } else {
+                // Open in web browser if YouTube app is not installed
+                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(youtubeLink)))
             }
+        } else {
+            Toast.makeText(
+                requireContext(),
+                "Trailer is not available at this moment",
+                Toast.LENGTH_SHORT
+            ).show()
         }
     }
 
