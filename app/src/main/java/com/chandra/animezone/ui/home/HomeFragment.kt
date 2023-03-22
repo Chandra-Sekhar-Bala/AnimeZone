@@ -46,6 +46,10 @@ class HomeFragment : Fragment(), ItemClickListener {
     override fun onResume() {
         super.onResume()
 
+        binding.saved.setOnClickListener {
+            findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToSavedFragment())
+        }
+
         viewModel.popularAnimeList.observe(this) {
             binding.imageSlider.setImageList(imageList = it)
         }

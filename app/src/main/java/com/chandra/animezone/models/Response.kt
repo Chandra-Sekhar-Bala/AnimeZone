@@ -7,7 +7,6 @@ data class Response(
     val airing: Boolean?,
     val duration: String?,
     val episodes: Int?,
-    val url: String?,
     val images: Images?,
     val rank: Int?,
     val rating: String?,

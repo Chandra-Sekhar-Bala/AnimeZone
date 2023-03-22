@@ -59,7 +59,7 @@ class DetailsViewModel @Inject constructor(
                     val data = _animeDetails.value
                     val model = AnimeDBModel(
                         animeID!!,
-                        data?.url ?: "",
+                        data?.images?.jpg?.largeImageUrl ?: "",
                         data?.title ?: "",
                         data?.score ?: 0.0
                     )

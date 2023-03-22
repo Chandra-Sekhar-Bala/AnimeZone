@@ -34,8 +34,5 @@
         <action
             android:id="@+id/action_savedFragment_to_detailsFragment"
             app:destination="@id/detailsFragment" />
-        <action
-            android:id="@+id/action_savedFragment_to_detailsFragment2"
-            app:destination="@id/detailsFragment" />
     </fragment>
 </navigation>
