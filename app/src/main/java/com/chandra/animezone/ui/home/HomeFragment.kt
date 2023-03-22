@@ -49,6 +49,9 @@ class HomeFragment : Fragment(), ItemClickListener {
         binding.saved.setOnClickListener {
             findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToSavedFragment())
         }
+        binding.search.setOnClickListener {
+            findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToSearchFragment())
+        }
 
         viewModel.popularAnimeList.observe(this) {
             binding.imageSlider.setImageList(imageList = it)

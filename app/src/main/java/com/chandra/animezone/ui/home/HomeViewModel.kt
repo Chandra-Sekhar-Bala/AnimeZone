@@ -28,6 +28,7 @@ class HomeViewModel @Inject constructor(private val api: AnimeAPI) : ViewModel()
         get() = _popularAnimeList
     private var pageNumber = 1
     private var lockTopAnimeCall = false
+    private var hasNextPage = true
 
     init {
         getPopularAnime()
@@ -56,19 +57,27 @@ class HomeViewModel @Inject constructor(private val api: AnimeAPI) : ViewModel()
     private fun getTopAnime() {
         viewModelScope.launch {
             try {
-                val data = api.getTopAnime(pageNumber)
-                if (topAnimeList.value == null) {
-                    _topAnimeList.value = data.data
-                } else {
-                    _topAnimeList.value = _topAnimeList.value?.plus(data.data)
+                if(hasNextPage) {
+                    val data = api.getTopAnime(pageNumber)
+                    if (topAnimeList.value == null) {
+                        _topAnimeList.value = data.data
+                    } else {
+                        _topAnimeList.value = _topAnimeList.value?.plus(data.data)
+                    }
+                    hasNextPage = data.pagination?.hasNextPage ?: true
+                    pageNumber += 1
                 }
-                pageNumber += 1
             } catch (e: Exception) {
                 Log.d(CONSTANTS.TAG, "getTopAnime error: ${e.message}")
             }
         }
     }
 
+
+    /***
+     * if a user scrolls in a place twice the item will be appended
+     * to prevent that till the next page is hold prevent the network call
+     */
 
     fun loadNextTopAnimePage() {
         if (!lockTopAnimeCall) {

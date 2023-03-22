@@ -4,7 +4,6 @@ import com.chandra.animezone.models.*
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
-import kotlin.reflect.jvm.internal.impl.load.java.ReportLevel
 
 interface AnimeAPI {
 
@@ -21,4 +20,9 @@ interface AnimeAPI {
     suspend fun getAnimeDetails(
        @Path("anime_id") id : Int
     ) : AnimeDetails
+
+    @GET("anime")
+    suspend fun getParticularAnime(
+        @Query("q") query: String,
+    ): AnimeList
 }

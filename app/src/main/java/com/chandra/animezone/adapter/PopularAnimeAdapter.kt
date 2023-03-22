@@ -46,7 +46,8 @@ class PopularAnimeAdapter constructor(private val listener: ItemClickListener) :
                 .into(anime_poster)
             title.text = data?.title.toString()
             val df = DecimalFormat("#.#")
-            val score = df.format(data?.score).toDouble()
+            Log.d(CONSTANTS.TAG, "Data val: ${data?.score}")
+            val score = df.format(data?.score ?: 0.0).toDouble()
             rating.text = String.format("%s/10", score)
         }
 
