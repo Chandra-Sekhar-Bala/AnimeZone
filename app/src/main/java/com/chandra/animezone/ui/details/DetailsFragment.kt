@@ -48,6 +48,15 @@ class DetailsFragment : Fragment() {
 
         viewModel.animeDetails.observe(this) {
             bindData(it)
+
+            binding.shimmerLayout.animate()
+                .alpha(0f)
+                .setDuration(200)
+                .withEndAction {
+                    binding.shimmerLayout.visibility = View.GONE
+                }
+                .start()
+            binding.mainLayout.visibility = View.VISIBLE
         }
 
         viewModel.existInDB.observe(this){
@@ -94,16 +103,6 @@ class DetailsFragment : Fragment() {
 
     private fun bindData(data: Response?) {
         if (data != null) {
-            youtubeLink = data.trailer?.url
-            val df = DecimalFormat("#.#")
-            val score = df.format(data.score).toDouble()
-            binding.rating.text = String.format("%s/10", score)
-            binding.title.text = data.title
-            binding.totalEpisodes.text = data.episodes.toString()
-            binding.ranking.text = data.rank.toString()
-            binding.duration.text = data.duration
-            binding.releaseOngoing.text = if (data.airing == true) "Yes" else "No"
-            binding.about.text = data.synopsis
 
             Glide.with(this)
                 .load(data.images?.jpg?.largeImageUrl)
@@ -125,6 +124,18 @@ class DetailsFragment : Fragment() {
                     override fun onLoadCleared(placeholder: Drawable?) {
                     }
                 })
+            youtubeLink = data.trailer?.url
+            val df = DecimalFormat("#.#")
+            val score = df.format(data.score).toDouble()
+            binding.rating.text = String.format("%s/10", score)
+            binding.title.text = data.title
+            binding.totalEpisodes.text = data.episodes.toString()
+            binding.ranking.text = data.rank.toString()
+            binding.duration.text = data.duration
+            binding.releaseOngoing.text = if (data.airing == true) "Yes" else "No"
+            binding.about.text = data.synopsis
+
+
         }
 
     }

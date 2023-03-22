@@ -6,4 +6,11 @@
         <item name="android:textColor">?attr/black_n_white</item>
     </style>
 
+    <style name="ShimmerTextStyle" parent="Widget.MaterialComponents.TextView">
+       <item name="android:background">@color/light_grey</item>
+    </style>
+    <style name="ShimmerSubTextStyle" parent="Widget.MaterialComponents.TextView">
+        <item name="android:background">@color/grey</item>
+    </style>
+
 </resources>
