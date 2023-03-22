@@ -3,7 +3,6 @@ package com.chandra.animezone.ui.search
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +11,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import com.chandra.animezone.CONSTANTS
 import com.chandra.animezone.adapter.ItemClickListener
 import com.chandra.animezone.adapter.PopularAnimeAdapter
 import com.chandra.animezone.databinding.FragmentSearchBinding
@@ -59,21 +57,40 @@ class SearchFragment : Fragment(), ItemClickListener {
 
         binding.searchAnime.addTextChangedListener(object : TextWatcher{
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-                Log.d(CONSTANTS.TAG, "beforeTextChanged: $s ")
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                if(s!= null && s.isNotEmpty()){
-                    Log.d(CONSTANTS.TAG, "Callling bro")
+                if (s != null && s.isNotEmpty()) {
                     viewModel.searchThisAnime(s.toString())
+                    showNoResultLayout(false)
+                } else {
+                    showNoResultLayout(true)
                 }
             }
 
             override fun afterTextChanged(s: Editable?) {
-
             }
 
         })
+    }
+
+    private fun showNoResultLayout(noResult: Boolean) {
+        when (noResult) {
+            true -> {
+                binding.searchRecyclerView.visibility = View.GONE
+                binding.noSearchResult.animate()
+                    .alpha(1f)
+                    .setDuration(200)
+                    .withEndAction { binding.noSearchResult.visibility = View.VISIBLE }
+            }
+            false -> {
+                binding.searchRecyclerView.visibility = View.VISIBLE
+                binding.noSearchResult.animate()
+                    .alpha(0f)
+                    .setDuration(200)
+                    .withEndAction { binding.noSearchResult.visibility = View.GONE }
+            }
+        }
     }
 
     override fun OnItemCLicked(anime_id: Int?) {

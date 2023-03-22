@@ -22,15 +22,15 @@ class SearchViewModel @Inject constructor(private val animeAPI: AnimeAPI) : View
     private var searchJob: Job? = null
 
     fun searchThisAnime(query: String) {
+        // cancel previous job then begin a new one
         searchJob?.cancel()
         searchJob = viewModelScope.launch {
-            Log.d(CONSTANTS.TAG, "inside vieModeScope")
             try {
                 val data = animeAPI.getParticularAnime(query)
                 _searchAnimeList.value = data.data
 
             } catch (e: Exception) {
-            Log.d(CONSTANTS.TAG, "getTopAnime error: ${e.message}")
+            Log.d(CONSTANTS.TAG, "Exception: ${e.message}")
         }
     }
 }

@@ -31,16 +31,10 @@ class HiltModules {
         val moshi = Moshi.Builder()
             .add(KotlinJsonAdapterFactory())
             .build()
-        val okHttpClient = OkHttpClient.Builder()
-            .connectTimeout(10, TimeUnit.SECONDS)
-            .readTimeout(10, TimeUnit.SECONDS)
-            .writeTimeout(10, TimeUnit.SECONDS)
-            .build()
         return Retrofit.Builder()
             .addConverterFactory(MoshiConverterFactory.create(moshi))
             .baseUrl(CONSTANTS.BASE_URL)
             .addCallAdapterFactory(CoroutineCallAdapterFactory())
-            .client(okHttpClient)
             .build()
     }
     @Singleton

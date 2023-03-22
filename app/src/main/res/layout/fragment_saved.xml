@@ -14,7 +14,7 @@
         android:background="@color/purple_500"
         android:gravity="end|center_vertical"
         android:orientation="horizontal"
-        android:paddingHorizontal="10dp"
+        android:padding="4dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
