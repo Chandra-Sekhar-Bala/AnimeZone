@@ -1,9 +1,9 @@
 package com.chandra.animezone.ui.details
 
 import android.content.Intent
+import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,11 +14,13 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
-import com.chandra.animezone.CONSTANTS
+import com.bumptech.glide.request.target.CustomTarget
+import com.bumptech.glide.request.transition.Transition
 import com.chandra.animezone.R
 import com.chandra.animezone.databinding.FragmentDetailsBinding
 import com.chandra.animezone.models.Response
 import dagger.hilt.android.AndroidEntryPoint
+import java.text.DecimalFormat
 
 @AndroidEntryPoint
 class DetailsFragment : Fragment() {
@@ -92,20 +94,38 @@ class DetailsFragment : Fragment() {
 
     private fun bindData(data: Response?) {
         if (data != null) {
-            Glide.with(this)
-                .load(data.images?.jpg?.largeImageUrl)
-                .placeholder(R.drawable.anime_item_template)
-                .into(binding.animePoster)
             youtubeLink = data.trailer?.url
-            binding.rating.text = String.format("%s/10", data.score)
+            val df = DecimalFormat("#.#")
+            val score = df.format(data.score).toDouble()
+            binding.rating.text = String.format("%s/10", score)
             binding.title.text = data.title
             binding.totalEpisodes.text = data.episodes.toString()
             binding.ranking.text = data.rank.toString()
             binding.duration.text = data.duration
             binding.releaseOngoing.text = if (data.airing == true) "Yes" else "No"
             binding.about.text = data.synopsis
+
+            Glide.with(this)
+                .load(data.images?.jpg?.largeImageUrl)
+                .placeholder(R.drawable.anime_item_template)
+                .into(binding.animePoster)
+
+            // to set background
+            Glide.with(requireActivity())
+                .load(data.images?.jpg?.largeImageUrl)
+                .centerCrop()
+                .into(object : CustomTarget<Drawable>() {
+                    override fun onResourceReady(
+                        resource: Drawable,
+                        transition: Transition<in Drawable>?
+                    ) {
+                        binding.animePoster.background = resource
+                    }
+
+                    override fun onLoadCleared(placeholder: Drawable?) {
+                    }
+                })
         }
+
     }
-
-
 }

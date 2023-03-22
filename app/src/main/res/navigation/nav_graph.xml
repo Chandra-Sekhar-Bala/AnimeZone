@@ -10,7 +10,9 @@
         android:label="HomeFragment">
         <action
             android:id="@+id/action_homeFragment_to_detailsFragment"
-            app:destination="@id/detailsFragment" />
+            app:destination="@id/detailsFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
         <action
             android:id="@+id/action_homeFragment_to_savedFragment"
             app:destination="@id/savedFragment" />
@@ -20,14 +22,6 @@
         android:name="com.chandra.animezone.ui.details.DetailsFragment"
         android:label="fragment_details"
         tools:layout="@layout/fragment_details">
-        <action
-            android:id="@+id/action_detailsFragment_to_homeFragment"
-            app:destination="@id/homeFragment"
-            app:popUpTo="@id/homeFragment" />
-        <action
-            android:id="@+id/action_detailsFragment_to_savedFragment"
-            app:destination="@id/savedFragment"
-            app:popUpTo="@id/homeFragment" />
         <argument
             android:name="id"
             app:argType="integer" />
@@ -40,10 +34,6 @@
         <action
             android:id="@+id/action_savedFragment_to_detailsFragment"
             app:destination="@id/detailsFragment" />
-        <action
-            android:id="@+id/action_savedFragment_to_homeFragment"
-            app:destination="@id/homeFragment"
-            app:popUpTo="@id/homeFragment" />
         <action
             android:id="@+id/action_savedFragment_to_detailsFragment2"
             app:destination="@id/detailsFragment" />

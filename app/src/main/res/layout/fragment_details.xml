@@ -10,7 +10,7 @@
         android:id="@+id/anime_poster"
         android:layout_width="match_parent"
         android:layout_height="300dp"
-        android:scaleType="centerCrop"
+        android:scaleType="fitCenter"
         tools:src="@drawable/placeholder"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -21,11 +21,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:background="@drawable/rectangle_bg"
-        android:backgroundTint="@color/shadow"
-        android:paddingHorizontal="20dp"
-        android:paddingVertical="10dp"
-        android:scaleType="centerCrop"
+        android:background="@drawable/round_bg"
+        android:padding="12dp"
         android:src="@drawable/back_arrow"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -180,10 +177,9 @@
                 android:background="@drawable/rectangle_bg"
                 android:paddingHorizontal="20dp"
                 android:text="@string/watch_trailer"
-
-                android:textColor="?attr/black_n_white"
                 android:textAllCaps="false"
                 app:backgroundTint="@null"
+                android:textColor="?attr/black_n_white"
                 app:layout_constraintStart_toStartOf="@+id/textView5"
                 app:layout_constraintTop_toBottomOf="@+id/duration" />
 
