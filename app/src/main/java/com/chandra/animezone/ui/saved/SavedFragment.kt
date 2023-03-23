@@ -1,6 +1,7 @@
 package com.chandra.animezone.ui.saved
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import com.chandra.animezone.CONSTANTS
 import com.chandra.animezone.adapter.ItemClickListener
 import com.chandra.animezone.adapter.PopularAnimeAdapter
 import com.chandra.animezone.databinding.FragmentSavedBinding
@@ -45,6 +47,7 @@ class SavedFragment : Fragment(), ItemClickListener {
         viewModel.getAllAnime()
         viewModel.animeList.observe(this) {
             adapter.submitList(it)
+            Log.d(CONSTANTS.TAG, "onResume: ${it.size} ")
             setLayoutRespectively(it.isEmpty())
         }
         binding.backBtn.setOnClickListener {
@@ -59,10 +62,10 @@ class SavedFragment : Fragment(), ItemClickListener {
     private fun setLayoutRespectively(empty: Boolean) {
         when (empty) {
             true -> {
-                binding.recyclerView.visibility = View.VISIBLE
-                binding.noSavedMovieLayout.visibility = View.GONE
+                binding.recyclerView.visibility = View.GONE
+                binding.noSavedMovieLayout.visibility = View.VISIBLE
             }
-            false ->{
+            false -> {
                 binding.recyclerView.visibility = View.VISIBLE
                 binding.noSavedMovieLayout.visibility = View.GONE
             }

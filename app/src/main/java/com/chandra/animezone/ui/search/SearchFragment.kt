@@ -3,6 +3,7 @@ package com.chandra.animezone.ui.search
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import com.chandra.animezone.CONSTANTS
 import com.chandra.animezone.adapter.ItemClickListener
 import com.chandra.animezone.adapter.PopularAnimeAdapter
 import com.chandra.animezone.databinding.FragmentSearchBinding
@@ -21,7 +23,7 @@ class SearchFragment : Fragment(), ItemClickListener {
 
     private lateinit var viewModel: SearchViewModel
     private lateinit var binding: FragmentSearchBinding
-    private lateinit var adapter: PopularAnimeAdapter
+    private val adapter: PopularAnimeAdapter = PopularAnimeAdapter(this)
     private lateinit var layoutManager: GridLayoutManager
 
     override fun onCreateView(
@@ -34,11 +36,17 @@ class SearchFragment : Fragment(), ItemClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.searchAnime.requestFocus()
         viewModel = ViewModelProvider(this)[SearchViewModel::class.java]
-        adapter = PopularAnimeAdapter(this)
         layoutManager = GridLayoutManager(requireContext(), 2)
         binding.searchRecyclerView.layoutManager = layoutManager
         binding.searchRecyclerView.adapter = adapter
+    }
+
+    override fun onStart() {
+        super.onStart()
+        Log.d(CONSTANTS.TAG, "onStart: ${adapter.itemCount} ")
+        showNoResultLayout(adapter.itemCount == 0)
     }
 
     override fun onResume() {
