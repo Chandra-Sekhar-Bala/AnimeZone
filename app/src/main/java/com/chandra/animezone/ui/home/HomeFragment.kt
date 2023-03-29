@@ -77,6 +77,13 @@ class HomeFragment : Fragment(), ItemClickListener {
                     }
                 }
             })
+        binding.imageSlider.setItemClickListener(object :
+            com.denzcoskun.imageslider.interfaces.ItemClickListener {
+            override fun onItemSelected(position: Int) {
+                Log.d(CONSTANTS.TAG, "onItemSelected: $position")
+            }
+        })
+
     }
 
     // callback when the item is clicked
